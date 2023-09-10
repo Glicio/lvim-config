@@ -30,7 +30,30 @@ lvim.format_on_save = true
 vim.g.copilot_no_tab = true
 vim.api.nvim_set_keymap("i", "<C-j>", 'copilot#Accept("CR")', { silent = true, expr = true })
 
+local cmp_nvim_lsp = require "cmp_nvim_lsp"
 
+require("lspconfig").clangd.setup {
+    on_attach = on_attach,
+    capabilities = cmp_nvim_lsp.default_capabilities(),
+    cmd = {
+        "clangd",
+        "--offset-encoding=utf-16",
+    },
+}
+
+local formatters = require "lvim.lsp.null-ls.formatters"
+formatters.setup {
+    { name = "black" },
+    {
+        name = "prettier",
+        ---@usage arguments to pass to the formatter
+        -- these cannot contain whitespace
+        -- options such as `--line-width 80` become either `{"--line-width", "80"}` or `{"--line-width=80"}`
+        args = { "--print-width", "100" },
+        ---@usage only start in these filetypes, by default it will attach to all filetypes it supports
+        filetypes = { "typescript", "typescriptreact" },
+    },
+}
 lvim.plugins = {
     { "norcalli/nvim-colorizer.lua" },
     { "mattn/emmet-vim" },
