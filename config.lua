@@ -66,13 +66,6 @@ lvim.plugins = {
             vim.g.copilot_no_tab_map = true
         end,
     },
-    {
-        "hrsh7th/cmp-copilot",
-        config = function()
-            lvim.builtin.cmp.formatting.source_names["copilot"] = "( )"
-            table.insert(lvim.builtin.cmp.sources, 2, { name = "copilot" })
-        end,
-    },
     { "theprimeagen/harpoon" },
     { "prisma/vim-prisma" },
     { "tpope/vim-fugitive" },
