@@ -40,6 +40,12 @@ require("lspconfig").clangd.setup {
         "--offset-encoding=utf-16",
     },
 }
+require("lvim.lsp.manager").setup "tailwindcss"
+
+local linters = require "lvim.lsp.null-ls.linters"
+linters.setup {
+    { command = "eslint", filetypes = { "typescript", "typescriptreact" } }
+}
 
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
@@ -54,6 +60,7 @@ formatters.setup {
         filetypes = { "typescript", "typescriptreact" },
     },
 }
+
 lvim.plugins = {
     { "norcalli/nvim-colorizer.lua" },
     { "mattn/emmet-vim" },
@@ -69,4 +76,8 @@ lvim.plugins = {
     { "theprimeagen/harpoon" },
     { "prisma/vim-prisma" },
     { "tpope/vim-fugitive" },
+    {
+        "folke/trouble.nvim",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+    }
 }
